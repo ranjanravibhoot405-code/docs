@@ -1,5 +1,5 @@
 const path=require("path"),http=require("http"),express=require("express");
-const {WebSocketServer}=require("ws");const app=express(),server=http.createServer(app),wss=new WebSocketServer({server}),rooms=new Map();
+const {WebSocketServer}=require("ws");const app=express();server=http.createServer(app),wss=new WebSocketServer({server}),rooms=new Map();
 app.use(express.static(path.join(__dirname,"public")));
 const send=(w,m)=>w.readyState===1&&w.send(JSON.stringify(m)),bc=(r,m)=>r.players.forEach(p=>send(p.ws,m));
 function code(){let s="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",c;do{c=[...Array(6)].map(()=>s[Math.floor(Math.random()*s.length)]).join("")}while(rooms.has(c));return c}
